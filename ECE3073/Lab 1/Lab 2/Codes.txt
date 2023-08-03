@@ -1,0 +1,52 @@
+# First Code
+.global _start
+_start:
+
+movia r3, 0x2000
+loop:	movia r4, 0x01
+	stwio r4, 0(r3)
+	br loop
+
+
+# Second Code
+.global _start
+_start:
+
+movia r3, 0x2000
+loop:	movia r4, 0xFF  # Just Changed this
+	stwio r4, 0(r3)
+	br loop
+
+# Third Code
+.global _start
+_start:
+
+movia r5, 0x2000
+movia r6, 0x01
+
+loop:	stwio r6, 0(r5)
+	stwio r0, 0(r5)
+	br loop
+
+# Fourth Code
+global _start
+_start:
+
+# initializing the base addresses of the PIO's
+# register r3 is the LED base address, r4 is the flag bit base address, r5 stores the address of the LED Pattern
+movia r3, 0x00002010
+movia r4, 0x00002000
+movia r5, 0x00000001
+movia r6, 0x00000033
+ldw r7, 0(r6)
+
+# Looping
+loop:
+stwio r7, 0(r3) # write to red LEDs 
+stwio r5, 0(r4) # flag goes high 
+stwio r0, 0(r4) # flag goes low 
+br loop
+
+
+
+
